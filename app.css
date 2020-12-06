@@ -1,0 +1,129 @@
+body {
+  background-color: bisque;
+}
+h1 {
+  margin: 5rem 0;
+  text-align: center;
+  font-size: 70px;
+}
+.wrapper {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  width: 650px;
+  height: 630px;
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  border: 5px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.box:nth-child(1),
+.box:nth-child(2),
+.box:nth-child(3) {
+  border-top: solid 5px transparent;
+}
+.box:nth-child(3n + 3) {
+  border-right: solid 5px transparent;
+}
+.box:nth-child(1n + 7) {
+  border-bottom: solid 5px transparent;
+}
+.box:nth-child(3n + 1) {
+  border-left: solid 5px transparent;
+}
+.box.o::after,
+.wrapper.o .box:not(.o):not(.x):hover::before {
+  content: "";
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 15px solid rgb(13, 14, 13);
+}
+.box.x::after,
+.wrapper.x .box:not(.o):not(.x):hover::after {
+  transform: rotate(45deg);
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 190px;
+  border-radius: 10px;
+  background-color: black;
+}
+.box.x::before,
+.wrapper.x .box:not(.o):not(.x):hover::before {
+  transform: rotate(-45deg);
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 190px;
+  border-radius: 10px;
+  background-color: black;
+}
+.wrapper.o .box:not(.o):not(.x):hover::before {
+  border-color: rgba(185, 176, 176, 0.5);
+}
+.box {
+  cursor: pointer;
+}
+.box.o,
+.box.x {
+  cursor: not-allowed;
+}
+
+.wrapper.x .box:not(.o):not(.x):hover::before,
+.wrapper.x .box:not(.o):not(.x):hover::after {
+  background-color: rgba(185, 176, 176, 0.8);
+}
+.winMessageModal {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(83, 69, 69);
+  opacity: 0.9;
+}
+.winWrapper {
+  margin-bottom: 400px;
+  height: 400px;
+  width: 400px;
+  border-radius: 20px;
+  background-color: blanchedalmond;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+.winMessage {
+  font-size: 60px;
+  color: rgb(66, 61, 61);
+  font-weight: 100;
+  text-align: center;
+  text-transform: uppercase;
+}
+.btn {
+  font-size: 34px;
+  padding: 10px 15px;
+  border-radius: 0.5rem;
+  color: #fff;
+  background-color: rgb(105, 105, 99);
+  border: 1px solid rgb(133, 129, 129);
+  outline: none;
+  cursor: pointer;
+}
+.hidden {
+  display: none;
+}
