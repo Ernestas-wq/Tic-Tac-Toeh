@@ -20,7 +20,7 @@ const bot = {
 		// Index to block opponent
 		if (this.madeMoves.length === 0) {
 			let random = Math.floor(Math.random() * this.availableMoves.length);
-			return this.availableMoves[random];
+			return this.availableMoves.includes(4) ? 4 : this.availableMoves[random];
 		}
 		const blockIndex = getPlacement(playerMadeMoves);
 		// Get the index of a possible win
@@ -39,16 +39,27 @@ const bot = {
 function getPlacementNoPair(arr) {
 	let sets = subset(arr, 2);
 	let index;
-	sets.forEach(set => {
-		let x = set[0];
-		let y = set[1] || undefined;
+	if (arr.length === 1) {
 		WIN_COMBINATIONS.forEach(combo => {
-			if ((combo.includes(x) || combo.includes(y)) && compareEvery(combo, playerMadeMoves)) {
-				// console.log(combo);
-				index = combo.filter(num => num !== x && num !== y)[0];
+			if (combo.includes(arr[0]) && compareEvery(combo, arr[0])) {
+				index = combo.filter(el => el !== arr[0]);
 			}
 		});
-	});
+	} else {
+		sets.forEach(set => {
+			let x = set[0];
+			let y = set[1] || undefined;
+			WIN_COMBINATIONS.forEach(combo => {
+				if (
+					(combo.includes(x) || combo.includes(y)) &&
+					compareEvery(combo, playerMadeMoves)
+				) {
+					// console.log(combo);
+					index = combo.filter(num => num !== x && num !== y)[0];
+				}
+			});
+		});
+	}
 	return index;
 }
 // Get placement of a possible win or a possible block for enemy...
@@ -58,11 +69,15 @@ function getPlacement(arr) {
 	sets.forEach(set => {
 		// console.log(set);
 		let x = set[0];
-		let y = set[1] || undefined;
+		let y = set[1];
 		WIN_COMBINATIONS.forEach(combo => {
 			if (combo.includes(x) && combo.includes(y)) {
 				// console.log('X IS ' + x + ' Y IS ' + y);
 				bot.availableMoves.forEach(move => {
+					if (combo.includes(move)) {
+						console.log('COMBO IS ' + combo);
+						console.log('MOVE IS ' + move);
+					}
 					combo.includes(move) ? (index = move) : undefined;
 					// return combo.includes(move) ? move : undefined;
 				});
