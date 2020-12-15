@@ -6,7 +6,6 @@ const winMessage = document.getElementById('winMessage');
 const gameMenu = document.getElementById('gameMenu');
 const singleBtn = document.getElementById('singlePlayer');
 const twoPlayerBtn = document.getElementById('twoPlayers');
-
 singleBtn.addEventListener('click', () => {
 	gameMenu.classList.add('hidden');
 	singlePlayer = true;

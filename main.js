@@ -11,6 +11,7 @@ const WIN_COMBINATIONS = [
 	[0, 4, 8],
 	[2, 4, 6]
 ];
+let playerMadeMoves = [];
 let circleTurn = false;
 let singlePlayer = true;
 let gameOver = false;
@@ -67,14 +68,16 @@ function gameRestart() {
 		cell.addEventListener('click', gameLogic, { once: true });
 		winModal.classList.add('hidden');
 	});
-	bot.moves = Array.from(document.querySelectorAll('.box'));
+	bot.availableMoves = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+	bot.madeMoves = [];
+	playerMadeMoves = [];
 }
-
 function placeMark(cell, c) {
 	cell.classList.add(c);
-
 	if (singlePlayer) {
-		bot.moves.splice(bot.moves.indexOf(cell), 1);
+		playerMadeMoves.push(cells.indexOf(cell));
+		console.log(cells.indexOf(cell));
+		bot.availableMoves = bot.availableMoves.filter(x => x !== cells.indexOf(cell));
 		if (evaluateWin(bot.class) || evaluateWin(c) || tracker == 9) {
 			gameOver = true;
 		}
